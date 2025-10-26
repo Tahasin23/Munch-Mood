@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Agent Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='agent.css') }}">
+    <script>
+        function showTab(tab) {
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('signup-form').classList.remove('active');
+            document.getElementById('login-tab').classList.remove('active');
+            document.getElementById('signup-tab').classList.remove('active');
+            document.getElementById(tab + '-form').classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+        }
+    </script>
+    {% if not agent %}
+    <script>
+        window.onload = function() {
+            showTab('login');
+        }
+    </script>
+    {% endif %}
+</head>
+<body>
+    <div class="agent-container">
+        {% if agent %}
+        <div class="agent-profile active">
+            <div class="profile-title">Agent Profile</div>
+            <div class="profile-info"><strong>Name:</strong> {{ agent.name }}</div>
+            <div class="profile-info"><strong>Email:</strong> {{ agent.email }}</div>
+            <form method="POST" action="{{ url_for('agent_logout') }}">
+                <button class="logout-btn" type="submit">Logout</button>
+            </form>
+            <!-- General Message Box for Agent to Customer -->
+            <!-- <form method="POST" action="{{ url_for('agent_general_message') }}" class="message-form" style="margin: 0 auto; margin-top: 20px;">
+                <input type="text" name="message" placeholder="Send a message to customer..." required>
+                <button type="submit">Send Message</button>
+            </form> -->
+            <hr style="margin: 24px 0;">
+            {% if pending_orders %}
+            <div class="orders-title" style="color:#ee1c0d;font-weight:600;font-size:1.2rem;margin-bottom:10px;">Pending Orders</div>
+            {% for order in pending_orders %}
+            <div class="order-card">
+                <div><strong>Location:</strong> {{ order.location }}, {{ order.street }}, {{ order.apartment }}</div>
+                {% if not order.accepted %}
+                    <form method="POST" action="{{ url_for('agent_accept_order', order_id=order.id) }}" style="display:inline;">
+                        <button type="submit" class="dashboard-btn" style="margin-right:8px;">Accept</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('agent_reject_order', order_id=order.id) }}" style="display:inline;">
+                        <button type="submit" class="dashboard-btn" style="background:#b81a0a;">Reject</button>
+                    </form>
+                {% elif not order.delivered %}
+                    <form method="POST" action="{{ url_for('agent_update_status', order_id=order.id, status='received') }}" style="display:inline;">
+                        <button type="submit" class="dashboard-btn" style="background:#1ca01c; margin-right:8px;">Order Received</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('agent_update_status', order_id=order.id, status='on_the_way') }}" style="display:inline;">
+                        <button type="submit" class="dashboard-btn" style="background:#f7b731; margin-right:8px;">On the Way</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('agent_update_status', order_id=order.id, status='delivered') }}" style="display:inline;">
+                        <button type="submit" class="dashboard-btn" style="background:#ee1c0d;">Order Delivered</button>
+                    </form>
+                {% else %}
+                    <div style="margin-top:8px;color:#1ca01c;"><strong>Parcel delivered!</strong></div>
+                    {% if order.food_id %}
+                        <a href="{{ url_for('review', food_id=order.food_id) }}">
+                            <button type="button" class="submit-btn" style="margin-top:10px;">Leave a Review</button>
+                        </a>
+                    {% else %}
+                        <div style="color:#b81a0a; margin-top:10px;">No food linked to this order.</div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% else %}
+            <div style="color:#621616;">No pending orders at the moment.</div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="agent-title">Delivery Agent Portal</div>
+        <div class="agent-tabs">
+            <button id="login-tab" class="agent-tab" type="button" onclick="showTab('login')">Login</button>
+            <button id="signup-tab" class="agent-tab" type="button" onclick="showTab('signup')">Signup</button>
+        </div>
+        <!-- Login Form -->
+        <form id="login-form" class="agent-form" method="POST" action="{{ url_for('agent_login') }}">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" name="email" required>
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+        <!-- Signup Form -->
+        <form id="signup-form" class="agent-form" method="POST" action="{{ url_for('agent_signup') }}">
+            <label for="signup-name">Name</label>
+            <input type="text" id="signup-name" name="name" required>
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" name="email" required>
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="password" required>
+            <button type="submit">Signup</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>

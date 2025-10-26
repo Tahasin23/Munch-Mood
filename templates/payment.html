@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='payment.css') }}">
+    <style>
+        .top-right-btn {
+            position: absolute;
+            top: 24px;
+            right: 36px;
+            z-index: 10;
+        }
+        .dashboard-btn {
+            background: #ee1c0d;
+            color: #fffbe6;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+        }
+        .dashboard-btn:hover {
+            background: #b81a0a;
+        }
+    </style>
+    <script>
+        function toggleCardFields() {
+            var cardFields = document.getElementById('cardFields');
+            var cardRadio = document.getElementById('card');
+            var cardInputs = document.querySelectorAll('#cardFields input');
+            
+            if (cardRadio.checked) {
+                cardFields.style.display = 'block';
+                // Make card fields required when card payment is selected
+                cardInputs.forEach(function(input) {
+                    input.setAttribute('required', '');
+                });
+            } else {
+                cardFields.style.display = 'none';
+               
+                cardInputs.forEach(function(input) {
+                    input.removeAttribute('required');
+                });
+            }
+        }
+        window.onload = toggleCardFields;
+    </script>
+</head>
+<body>
+    <div class="top-right-btn">
+        <a href="{{ url_for('customer_dashboard') }}">
+            <button class="dashboard-btn">Back to Dashboard</button>
+        </a>
+    </div>
+    <div class="payment-container">
+        <h2 class="payment-title">Payment</h2>
+        <form class="payment-form" method="POST" action="{{ url_for('payment') }}" id="paymentForm">
+            <label>
+                <input type="radio" name="payment_method" value="cash" id="cash" checked onclick="toggleCardFields()">
+                Cash on Delivery
+            </label>
+            <label>
+                <input type="radio" name="payment_method" value="card" id="card" onclick="toggleCardFields()">
+                Credit or Debit Card
+            </label>
+
+            <div id="cardFields" class="card-fields" style="display:none;">
+                <label for="card_number">Card Number</label>
+                <input type="text" id="card_number" name="card_number" maxlength="16" minlength="16" pattern="\d{16}" placeholder="1234567812345678"
+                       oninvalid="this.setCustomValidity('Please enter a valid 16-digit card number')"
+                       oninput="this.setCustomValidity('')">
+
+                <label for="expiry">MM/YY</label>
+                <input type="text" id="expiry" name="expiry" maxlength="5" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="MM/YY"
+                       oninvalid="this.setCustomValidity('Please enter a valid date format MM/YY')"
+                       oninput="this.setCustomValidity('')">
+
+                <label for="cvc">CVC</label>
+                <input type="text" id="cvc" name="cvc" maxlength="3" minlength="3" pattern="\d{3}" placeholder="CVC"
+                       oninvalid="this.setCustomValidity('Please enter a valid 3-digit CVC code')"
+                       oninput="this.setCustomValidity('')">
+
+                <label for="cardholder">Cardholder Name</label>
+                <input type="text" id="cardholder" name="cardholder" placeholder="Cardholder Name">
+            </div>
+
+            <button type="submit">Pay & Place Order</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8, #ea9595);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.agent-container {
+    background-color: #fffbe6;
+    padding: 40px 32px 32px 32px;
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 350px;
+    animation: slideIn 1s ease forwards;
+    transform: translateY(-100px);
+    opacity: 0;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.agent-title {
+    color: #621616;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.agent-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 18px;
+    gap: 8px;
+}
+
+.agent-tab {
+    background: #ffeaea;
+    color: #ee1c0d;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1rem;
+}
+
+.agent-tab.active, .agent-tab:hover {
+    background: #ee1c0d;
+    color: #fffbe6;
+}
+
+.agent-form {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.agent-form.active {
+    display: flex;
+}
+
+.agent-form label {
+    font-weight: 600;
+    color: #ee1c0d;
+    margin-bottom: 6px;
+    margin-top: 12px;
+    width: 100%;
+    text-align: left;
+}
+
+.agent-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #ffeaea;
+    color: #621616;
+    transition: border-color 0.3s, background 0.2s;
+}
+
+.agent-form input:focus {
+    border-color: #ea9595;
+    outline: none;
+    background: #fff;
+}
+
+.agent-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ee1c0d;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+}
+
+.agent-form button:hover {
+    background-color: #621616;
+    transform: translateY(-2px);
+}
+
+.agent-profile {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.agent-profile.active {
+    display: flex;
+}
+
+.profile-title {
+    color: #ee1c0d;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+}
+
+.profile-info {
+    color: #621616;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.logout-btn {
+    background: #ee1c0d;
+    color: #fffbe6;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 18px;
+    transition: background 0.2s;
+}
+
+.logout-btn:hover {
+    background: #621616;
+}
+
+
+.message-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%;
+    gap: 12px;
+}
+
+.message-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background: #ffeaea;
+    color: #621616;
+    transition: border-color 0.3s, background 0.2s;
+}
+
+.message-form input[type="text"]:focus {
+    border-color: #ea9595;
+    outline: none;
+    background: #fff;
+}
+
+.message-form button {
+    padding: 10px 20px;
+    background-color: #ee1c0d;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+}
+
+.message-form button:hover {
+    background-color: #621616;
+    transform: translateY(-2px);
+}

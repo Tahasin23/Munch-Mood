@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Login & Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='resturant.css') }}">
+    <script>
+        function showTab(tab) {
+            document.getElementById('signup-form').classList.remove('active');
+            document.getElementById('login-form').classList.remove('active');
+            document.getElementById('signup-btn').classList.remove('active');
+            document.getElementById('login-btn').classList.remove('active');
+            document.getElementById(tab + '-form').classList.add('active');
+            document.getElementById(tab + '-btn').classList.add('active');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            showTab('login');
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.flash-message').forEach(function(msg) {
+                    msg.style.display = 'none';
+                });
+            }, 3000); // 3 second
+        });
+    </script>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-form" style="max-width:400px;">
+            <div class="tab-switch">
+                <button id="login-btn" onclick="showTab('login')" type="button">Login</button>
+                <button id="signup-btn" onclick="showTab('signup')" type="button">Sign Up</button>
+            </div>
+            <div id="login-form" class="tab-content">
+                <h2>Restaurant Login</h2>
+                <form method="POST" action="{{ url_for('restaurant_login') }}">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                          <li class="flash-message" style="color:red;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                </form>
+                <a href="{{ url_for('home') }}">
+                    <button type="button" style="width:100%;margin-top:16px;background:#fffbe6;color:#ee1c0d;font-weight:bold;border-radius:8px;border:none;padding:10px 0;cursor:pointer;">
+                        Back to Home
+                    </button>
+                </a>
+            </div>
+            <div id="signup-form" class="tab-content">
+                <h2>Restaurant Sign Up</h2>
+                <form method="POST" action="{{ url_for('restaurant_register') }}">
+                    <input type="text" name="restaurant_name" placeholder="Restaurant Name" required>
+                    <input type="text" name="owner_name" placeholder="Owner Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Sign Up</button>
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                          <li class="flash-message" style="color:red;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                </form>
+                <a href="{{ url_for('home') }}">
+                    <button type="button" style="width:100%;margin-top:16px;background:#fffbe6;color:#ee1c0d;font-weight:bold;border-radius:8px;border:none;padding:10px 0;cursor:pointer;">
+                        Back to Home
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

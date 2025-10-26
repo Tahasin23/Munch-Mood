@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    overflow-x: hidden; /* Only hides horizontal overflow, allows vertical scroll */
+}
+
+.navbar {
+    background: linear-gradient(90deg, #fffbe6 0%, #ea9595 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.10);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ee1c0d;
+    letter-spacing: 1px;
+}
+
+.nav-menu a {
+    color: #621616;
+    text-decoration: none;
+    margin: 0 18px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: color 0.2s;
+    position: relative; /* Needed for the ::after line */
+    padding-bottom: 4px;
+}
+
+/* Show line on hover */
+.nav-menu a:hover::after,
+.nav-menu a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #ee1c0d;
+    border-radius: 2px;
+    transition: background 0.2s;
+}
+
+/* Only show line for active or hovered link */
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    transition: background 0.2s;
+}
+
+.nav-menu a:hover {
+    color: #ee1c0d;
+}
+
+.nav-menu a.active {
+    color: #ee1c0d;
+    font-weight: 600;
+    position: relative;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-info span {
+    color: #621616;
+    font-weight: 500;
+}
+
+.user-info a {
+    color: #fff;
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    padding: 7px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.user-info a:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 40px auto;
+    max-width: 1300px;
+    gap: 32px;
+    width: 100%;
+}
+
+.filters {
+    background: #fffbe6;
+    border-radius: 16px;
+    padding: 28px 20px;
+    min-width: 220px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filters h3 {
+    color: #ee1c0d;
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+}
+
+.filter-group {
+    margin-bottom: 22px;
+}
+
+.filter-group strong {
+    color: #621616;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.filter-group label,
+.filter-group button {
+    display: block;
+    margin-bottom: 7px;
+    color: #621616;
+    font-size: 0.98rem;
+}
+
+.filter-group button {
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 7px 14px;
+    margin-top: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.filter-group button:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+}
+
+.filter-group input[type="text"] {
+    width: 90%;
+    padding: 7px;
+    border-radius: 6px;
+    border: 1px solid #ea9595;
+    margin-bottom: 8px;
+    font-size: 0.97rem;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+
+.food-cards{
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 35px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.food-cards h2 {
+    color: #ee1c0d;
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.food-cards p {
+    color: #621616;
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+}
+
+/* Modified styles for horizontal scroll and margin */
+.foods-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 25px 0;
+    overflow-x: auto;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #ee1c0d #fffbe6;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+}
+
+.foods-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.foods-container::-webkit-scrollbar-track {
+    background: #fffbe6;
+    border-radius: 4px;
+}
+
+.foods-container::-webkit-scrollbar-thumb {
+    background: #ee1c0d;
+    border-radius: 4px;
+}
+
+.foods-wrapper {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 10px 25px 18px 20px; /* Reduced bottom padding from 36px to 18px */
+    scroll-behavior: smooth;
+    min-width: 100%;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #ee1c0d #fffbe6;
+    flex-wrap: nowrap;
+}
+
+.foods-wrapper::-webkit-scrollbar {
+    height: 10px;
+}
+
+.foods-wrapper::-webkit-scrollbar-track {
+    background: #fffbe6;
+    border-radius: 4px;
+}
+
+.foods-wrapper::-webkit-scrollbar-thumb {
+    background: #ee1c0d;
+    border-radius: 4px;
+}
+
+/* Ensure food-item has adequate spacing */
+.food-item {
+    flex: 0 0 auto;
+    width: 220px;
+    margin-bottom: 8px; /* Added margin to ensure space for scrollbar */
+    flex: 0 0 220px; /* or your card width */
+}
+
+/* Card: ensure flex column and fixed height */
+.card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(234, 149, 149, 0.15);
+    padding: 16px;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 410px; /* adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Spacer to push button to bottom */
+.card .spacer {
+    flex-grow: 1;
+    min-height: 10px;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(234, 149, 149, 0.2);
+}
+
+/* Ensure all images and placeholders are the same size */
+.food-image,
+.card-img-placeholder {
+    width: 100%;
+    height: 160px;      /* Fixed height for all images */
+    object-fit: cover;  /* Ensures image covers the box */
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #ffeaea;
+    display: block;
+}
+
+.card h4 {
+    color: #ee1c0d;
+    margin: 8px 0 4px 0;
+    font-size: 1.1rem;
+}
+
+.card p {
+    color: #621616;
+    font-size: 0.9rem;
+    margin: 4px 0;
+}
+
+.highlight-cards {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+.daily-deals {
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.daily-deals h3 {
+    color: #ee1c0d;
+    margin-bottom: 12px;
+}
+
+.deal-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.deal-box {
+    background: linear-gradient(90deg, #ea9595 0%, #fffbe6 100%);
+    color: #621616;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 14px 22px;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+    margin-bottom: 8px;
+}
+
+.food-category {
+    margin-bottom: 40px;
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.1);
+}
+
+.food-category h2 {
+    color: #ee1c0d;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+/* Fixed Buy Button styles */
+.buy-btn {
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 70%;
+    margin: -4px auto 0 auto; /* You can adjust this margin as you wish */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    z-index: 2;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.buy-btn:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.buy-btn .price {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #fffbe6;
+}
+
+/* Restaurant List Page Styles */
+.restaurant-list-wrapper {
+    max-width: 900px;
+    margin: 32px auto 0 auto;
+}
+
+/* Restaurant List Page Styles - Clean vertical list */
+.restaurant-list-container {
+    max-width: 900px;
+    max-height: 620px;
+    margin: 40px auto;
+    overflow-y: auto;
+    border: 2px solid #ee1c0d;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.12);
+    background: #fffbe6;
+    padding: 0;
+    display: none !important;
+}
+
+.restaurant-list-ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none !important;
+}
+
+.restaurant-list-ul li {
+    margin: 0;
+    padding: 0;
+}
+
+.restaurant-list-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.restaurant-list-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 18px;
+    border-bottom: 1px solid #ea9595;
+    transition: background 0.2s;
+    cursor: pointer;
+    min-height: 80px;
+    background: transparent;
+    display: none !important;
+}
+.restaurant-list-item:last-child {
+    border-bottom: none;
+}
+.restaurant-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 24px;
+    background: #ffeaea;
+}
+.restaurant-name {
+    color: #ee1c0d;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.restaurant-list-item:hover {
+    background: #ffeaea;
+}
+
+.restaurant-card {
+    background: #962a2a;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(234, 149, 149, 0.15);
+    width: 220px;
+    text-align: center;
+    padding: 18px 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+.restaurant-card:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(234, 149, 149, 0.2);
+}
+.restaurant-name {
+    color: #ee1c0d;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.restaurant-list-header {
+    text-align: center;
+    color: #ee1c0d;
+    margin-top: 0;
+}
+.restaurant-list-back-btn {
+    background: #fffbe6;
+    color: #ee1c0d;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 24px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: background 0.2s;
+}
+.restaurant-list-back-btn:hover {
+    background: #ffeaea;
+}
+
+/* Horizontal restaurant list styles */
+.restaurant-list-horizontal {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    overflow-x: auto;
+    padding: 30px 0 30px 20px;
+    max-width: 100vw;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #ee1c0d #fffbe6;
+}
+.restaurant-list-horizontal::-webkit-scrollbar {
+    height: 10px;
+}
+.restaurant-list-horizontal::-webkit-scrollbar-thumb {
+    background: #ee1c0d;
+    border-radius: 4px;
+}
+.restaurant-horizontal-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.restaurant-horizontal-item {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(234, 149, 149, 0.15);
+    width: 200px;
+    min-width: 200px;
+    text-align: center;
+    padding: 18px 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.restaurant-horizontal-item:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(234, 149, 149, 0.2);
+}
+.restaurant-horizontal-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #ffeaea;
+}
+.restaurant-horizontal-name {
+    color: #ee1c0d;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}

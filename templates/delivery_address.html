@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delivery Address</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='address.css') }}">
+    <style>
+        .top-right-btn {
+            position: absolute;
+            top: 24px;
+            right: 36px;
+            z-index: 10;
+        }
+        .dashboard-btn {
+            background: #ee1c0d;
+            color: #fffbe6;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+        }
+        .dashboard-btn:hover {
+            background: #b81a0a;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-right-btn">
+        <a href="{{ url_for('customer_dashboard') }}">
+            <button class="dashboard-btn">Back to Dashboard</button>
+        </a>
+    </div>
+    <div class="address-container">
+        <h2 class="address-title">Delivery Address</h2>
+        <form class="address-form" method="POST" action="{{ url_for('delivery_address') }}">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required placeholder="e.g. Dhanmondi, Banani">
+
+            <label for="street">Street</label>
+            <input type="text" id="street" name="street" required placeholder="e.g. Road 12, House 34">
+
+            <label for="apartment">Apartment Number</label>
+            <input type="text" id="apartment" name="apartment" required placeholder="e.g. Apt 5B">
+
+            <button type="submit">Save Address & Continue</button>
+        </form>
+    </div>
+</body>
+</html>

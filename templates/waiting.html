@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Waiting for Delivery Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+            margin: 0;
+        }
+        .waiting-container {
+            background: #fffbe6;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(234, 149, 149, 0.18);
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        .waiting-title {
+            color: #ee1c0d;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .waiting-msg {
+            color: #621616;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .dashboard-btn {
+            background: #ee1c0d;
+            color: #fffbe6;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+            margin-top: 28px;
+        }
+        .dashboard-btn:hover {
+            background: #b81a0a;
+        }
+        .order-details {
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+            padding-top: 20px;
+            text-align: left;
+        }
+        .order-detail {
+            margin: 8px 0;
+            padding: 6px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            background-color: #f7b731;
+            color: #fff;
+            margin-top: 10px;
+        }
+        .agent-message {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            border-left: 4px solid #ee1c0d;
+            text-align: left;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 8px rgba(247, 183, 49, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 12px rgba(247, 183, 49, 0.5);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 8px rgba(247, 183, 49, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="waiting-container">
+        <div class="waiting-title">Order Placed!</div>
+        <div class="waiting-msg">
+            Please wait while a delivery agent accepts your order.<br>
+            You will be notified once your order is picked up.
+        </div>
+        
+        <div class="order-details">
+            <div class="order-detail">
+                <strong>Status:</strong> {{ order_status or 'Order Placed' }}
+            </div>
+            
+            {% if payment_method %}
+            <div class="order-detail">
+                <strong>Payment Method:</strong> 
+                {% if payment_method == 'cash' %}
+                    Cash on Delivery
+                {% else %}
+                    Credit/Debit Card
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            {% if agent_message %}
+            <div class="agent-message">
+                <strong>Message from Agent:</strong>
+                <p>{{ agent_message }}</p>
+            </div>
+            {% endif %}
+            
+            <div class="status-badge">{{ order_status or 'Order Placed' }}</div>
+            
+            {% if order_status == 'Order Delivered' %}
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="{{ url_for('user_profile') }}">
+                    <button class="dashboard-btn" style="background: #f7b731; animation: pulse 2s infinite;">⭐ Rate Your Order</button>
+                </a>
+                <p style="margin-top: 10px; font-size: 0.9em;">Please share your feedback to help others!</p>
+            </div>
+            {% endif %}
+        </div>
+      
+        <a href="{{ url_for('customer_dashboard') }}">
+            <button class="dashboard-btn">Back to Dashboard</button>
+        </a>
+        
+        <a href="{{ url_for('user_profile') }}">
+            <button class="dashboard-btn" style="background: #1ca01c;">View Profile & Order Status</button>
+        </a>
+    </div>
+</body>
+</html>

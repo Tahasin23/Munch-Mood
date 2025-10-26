@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.admin-form {
+    background: linear-gradient(120deg, #fffbe6 0%, #ffeaea 100%);
+    padding: 36px 32px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(234, 149, 149, 0.18), 0 2px 8px rgba(98, 22, 22, 0.07);
+    max-width: 1100px;   /* Increased from 400px to 1100px */
+    width: 100%;
+    text-align: center;
+    margin: 40px auto;
+}
+
+.admin-form h2 {
+    color: #ee1c0d;
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.admin-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.admin-form label {
+    text-align: left;
+    color: #621616;
+    font-weight: 500;
+    margin-bottom: 2px;
+    margin-top: 8px;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="number"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ea9595;
+    font-size: 15px;
+    background: #fff;
+    transition: border-color 0.3s;
+}
+
+.admin-form input:focus {
+    border-color: #ee1c0d;
+    outline: none;
+}
+
+.admin-form button[type="submit"] {
+    margin-top: 14px;
+    padding: 12px;
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.18);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.admin-form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+    transform: translateY(-2px) scale(1.01);
+}
+
+.admin-form a button[type="button"] {
+    margin-top: 10px;
+    background: #ffeaea;
+    color: #ee1c0d;
+    border: 1px solid #ea9595;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.admin-form a button[type="button"]:hover {
+    background: #ea9595;
+    color: #fff;
+}
+
+.dashboard-section {
+    background: #fffbe6;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.08);
+    padding: 24px 18px;
+    margin: 32px auto;
+    width: 90%;
+    max-width: 1000px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+    min-width: 700px; /* Ensures table doesn't shrink too much */
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+th, td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid #ea9595;
+}
+
+th {
+    background: #ffeaea;
+    color: #621616;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.edit-btn {
+    background: linear-gradient(90deg, #ffeaea 0%, #ea9595 100%);
+    color: #ee1c0d;
+    border: 1px solid #ea9595;
+    font-weight: bold;
+    margin-right: 6px;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+.edit-btn:hover {
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: #fff;
+    border: 1px solid #ee1c0d;
+}
+
+/* Edit Food Item Form */
+.admin-edit-form {
+    background: linear-gradient(120deg, #fffbe6 0%, #ffeaea 100%);
+    padding: 36px 32px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(234, 149, 149, 0.18), 0 2px 8px rgba(98, 22, 22, 0.07);
+    max-width: 400px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.admin-edit-form h2 {
+    color: #ee1c0d;
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.admin-edit-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-edit-form label {
+    text-align: left;
+    color: #621616;
+    font-weight: 500;
+    margin-bottom: 4px;
+    margin-top: 8px;
+}
+
+.admin-edit-form input[type="text"],
+.admin-edit-form input[type="number"] {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ea9595;
+    font-size: 15px;
+    background: #fff;
+    transition: border-color 0.3s;
+}
+
+.admin-edit-form input:focus {
+    border-color: #ee1c0d;
+    outline: none;
+}
+
+.admin-edit-form button[type="submit"] {
+    margin-top: 18px;
+    padding: 12px;
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.18);
+    transition: background 0.3s, transform 0.2s;
+}
+
+.admin-edit-form button[type="submit"]:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+    transform: translateY(-2px) scale(1.01);
+}
+
+.admin-edit-form .cancel-link {
+    display: inline-block;
+    margin-top: 16px;
+    color: #ee1c0d;
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.admin-edit-form .cancel-link:hover {
+    color: #621616;
+    text-decoration: underline;
+}
+
+/* Admin header and actions */
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.admin-header h2 {
+    margin: 0;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    padding: 8px 18px;
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.action-btn:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+    color: #fff;
+}
+
+.logout-btn {
+    background: #ffeaea;
+    color: #ee1c0d;
+    border: 1px solid #ea9595;
+}
+
+.logout-btn:hover {
+    background: #ea9595;
+    color: #fff;
+}
+
+.upload-label {
+    display: inline-block;
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: #fff;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+    border: none;
+    text-align: center;
+}
+
+.upload-label:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.approve-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.approve-btn:hover {
+    background-color: #45a049;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.reject-btn:hover {
+    background-color: #da190b;
+}

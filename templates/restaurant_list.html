@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select a Restaurant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar (same as customer_dashboard) -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Munch & Mood Logo" width="50" class="logo-img">
+            Munch & Mood
+        </div>
+        <nav class="nav-menu">
+            <a href="{{ url_for('customer_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('user_profile') }}">Profile</a>
+            <a href="#">Delivery</a>
+            <a href="#">Pick-up</a>
+            <a href="#">Groceries</a>
+            <a href="#">Shops</a>
+        </nav>
+        <div class="user-info">
+            <span>{{ session['email'] }}</span>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <div class="restaurant-list-wrapper">
+        <a href="{{ url_for('home') }}">
+            <button class="restaurant-list-back-btn">
+                ← Back to Home
+            </button>
+        </a>
+        <h2 class="restaurant-list-header">Select a Restaurant</h2>
+        <div class="restaurant-list-horizontal">
+            {% for rest in restaurants %}
+            <a href="{{ url_for('customer_dashboard_restaurant', restaurant_id=rest[0]) }}" class="restaurant-horizontal-link">
+                <div class="restaurant-horizontal-item">
+                    {% if rest[2] %}
+                        <img src="{{ url_for('static', filename=rest[2]) }}" alt="{{ rest[1] }}" class="restaurant-horizontal-img">
+                    {% else %}
+                        <div class="restaurant-horizontal-img"></div>
+                    {% endif %}
+                    <div class="restaurant-horizontal-name">{{ rest[1] }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer (same as customer_dashboard) -->
+    <footer class="footer-simple">
+        <span>
+            © 2025 Munch & Mood &nbsp;|&nbsp;
+            <a href="{{ url_for('home') }}" style="color:#ee1c0d;text-decoration:none;">Home</a>
+            &nbsp;|&nbsp;
+            <a href="https://facebook.com" target="_blank" style="color:#ee1c0d; margin:0 6px;">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" style="color:#ee1c0d; margin:0 6px;">
+                <i class="fa-brands fa-square-instagram"></i>
+            </a>
+        </span>
+    </footer>
+</body>
+</html>

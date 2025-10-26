@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8, #ea9595);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    /* overflow: hidden; */
+    min-height: 100vh;
+}
+
+/* Container with animation */
+.admin-login-container {
+    animation: slideIn 1s ease forwards;
+    transform: translateY(-100px);
+    opacity: 0;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Login form styling */
+.admin-form {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.admin-form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0,0,0,0.25);
+}
+
+.admin-form h2 {
+    color: #621616;
+    margin-bottom: 20px;
+}
+
+.admin-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.admin-form input:focus {
+    border-color: #ea9595;
+    outline: none;
+}
+
+.admin-form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ee1c0d;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-form button:hover {
+    background-color: #621616;
+    transform: translateY(-2px);
+}
+
+.back-home-btn {
+    display: block;
+    width: calc(100% - 24px);
+    padding: 12px;
+    background-color: #621616;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-home-btn:hover {
+    background-color: #ee1c0d;
+    transform: translateY(-2px);
+}

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .cart-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fffbe6;
+            border-radius: 14px;
+            box-shadow: 0 2px 10px rgba(234, 149, 149, 0.15);
+            padding: 32px 24px;
+        }
+        .cart-title {
+            color: #ee1c0d;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .cart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px 0;
+        }
+        .cart-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ea9595;
+            padding: 14px 0;
+        }
+        .cart-food-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .cart-food-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #ffeaea;
+        }
+        .cart-food-name {
+            font-weight: 600;
+            color: #ee1c0d;
+        }
+        .cart-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cart-qty-btn {
+            background: #ee1c0d;
+            color: #fffbe6;
+            border: none;
+            border-radius: 4px;
+            width: 28px;
+            height: 28px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cart-qty-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .cart-qty-input {
+            width: 40px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #ee1c0d;
+            border-radius: 4px;
+            padding: 2px 0;
+        }
+        .cart-remove-btn {
+            background: none;
+            border: none;
+            color: #ee1c0d;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-left: 12px;
+        }
+        .cart-price, .cart-subtotal {
+            color: #333;
+            font-size: 1rem;
+            margin-left: 12px;
+            min-width: 70px;
+            text-align: right;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ee1c0d;
+            margin-top: 18px;
+        }
+        .cart-actions {
+            text-align: right;
+        }
+        .cart-back-btn {
+            background: #fffbe6;
+            color: #ee1c0d;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid #ee1c0d;
+            padding: 10px 24px;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: background 0.2s;
+        }
+        .cart-back-btn:hover {
+            background: #ffeaea;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-container">
+        <h2 class="cart-title">Your Cart</h2>
+        <ul class="cart-list">
+            {% for item in cart %}
+            <li>
+                <div class="cart-food-info">
+                    {% if item.image %}
+                        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="cart-food-img">
+                    {% else %}
+                        <div class="cart-food-img"></div>
+                    {% endif %}
+                    <span class="cart-food-name">{{ item.name }}</span>
+                    <span class="cart-price">৳{{ '%.2f' % item.price }}</span>
+                </div>
+                <div class="cart-qty-controls">
+                    <button class="cart-qty-btn" onclick="changeQty('{{ item.id }}', -1)" {% if item.quantity <= 1 %}disabled{% endif %}>-</button>
+                    <input type="number" class="cart-qty-input" value="{{ item.quantity }}" min="1" onchange="setQty('{{ item.id }}', this.value)">
+                    <button class="cart-qty-btn" onclick="changeQty('{{ item.id }}', 1)">+</button>
+                    <span class="cart-subtotal">৳{{ '%.2f' % item.subtotal }}</span>
+                    <button class="cart-remove-btn" onclick="removeFromCart('{{ item.id }}')" aria-label="Remove {{ item.name }} from cart">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="cart-total">
+            Total: ৳{{ '%.2f' % total }}
+        </div>
+        <div class="cart-actions">
+            <a href="{{ url_for('restaurant_list') }}">
+                <button class="cart-back-btn">← Back to restaurant_list</button>
+            </a>
+            <a href="{{ url_for('delivery_address') }}">
+                <button class="cart-back-btn" style="margin-left: 12px; background: #ee1c0d; color: #fffbe6;">
+                    Proceed
+                </button>
+            </a>
+        </div>
+    </div>
+    <script>
+    function changeQty(foodId, delta) {
+        const input = document.querySelector(`input.cart-qty-input[onchange*="'${foodId}'"]`);
+        let newQty = parseInt(input.value) + delta;
+        if (newQty < 1) newQty = 1;
+        updateCart(foodId, newQty);
+        input.value = newQty;
+        location.reload();
+    }
+    function setQty(foodId, qty) {
+        qty = parseInt(qty);
+        if (qty < 1) qty = 1;
+        updateCart(foodId, qty);
+        location.reload();
+    }
+    function updateCart(foodId, quantity) {
+        const formData = new FormData();
+        formData.append('food_id', foodId);
+        formData.append('quantity', quantity);
+        fetch('/update-cart', {
+            method: 'POST',
+            body: formData
+        });
+    }
+    function removeFromCart(foodId) {
+        const formData = new FormData();
+        formData.append('food_id', foodId);
+        fetch('/remove-from-cart', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if(result.success){
+                location.reload();
+            } else {
+                alert('Failed to remove item from cart.');
+            }
+        });
+    }
+    </script>
+</body>
+</html>

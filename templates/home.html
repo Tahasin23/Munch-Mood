@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}?v=1.0">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+          <li style="color: #ee1c0d; font-weight: bold;">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#" class="logo">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="Munch & Mood Logo" width="50" class="logo-img">
+                    Munch & Mood
+                </a>
+                
+            </div>
+
+            <div class="buttons">
+                <button class="btn-login" onclick="showForm('login')">Login</button>
+                <button class="btn-signup" onclick="showForm('signup')">Signup</button>
+            </div>
+            
+        </nav>
+    </header>
+
+   
+
+
+    <div class="search-section">
+        <h1>Enjoy discounts on your first order</h1>
+        
+        <div class="search-bar">
+            <img src="{{ url_for('static', filename='burger.png') }}" alt="My image" class="free-image">
+            <img src="{{ url_for('static', filename='coke.png') }}" alt="My image" class="free-image-2">
+            <input type="text" placeholder="Enter your address" />
+            <button class="locate-btn">
+                <span class="icon">📍</span> Locate me
+            </button>
+            <button class="search-btn">Find food</button>
+        </div>
+    </div>
+
+    <section class="partner-footer">
+        <div class="partner-content">
+          <h2>List your restaurant or shop on Munch & Mood</h2>
+          <p>Would you like millions of new customers to enjoy your amazing food and groceries? So would we!</p>
+          <p>It's simple: we list your menu and product lists online, help you process orders, pick them up, and deliver them to you!</p>
+          
+        </div>
+      </section>
+      
+      <footer class="footer-container">
+       
+        <div class="footer-countries">
+
+            
+          <span>Myanmar</span>
+          <span>Hong Kong</span>
+          <span>Pakistan</span>
+          <span>Singapore</span>
+          <span>Malaysia</span>
+          <span>Philippines</span>
+          <span>Thailand</span>
+          <span>Taiwan</span>
+          <span>Cambodia</span>
+          <p1>......WE ARE EVERY WHERE!!</p1>
+        </div>
+      
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Munch & Mood</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Terms and Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Refund Account Terms and Conditions</a></li>
+              <li><a href="#">Cashback Program</a></li>
+            </ul>
+          </div>
+      
+          <div class="footer-col">
+            <h4>Services</h4>
+            <ul>
+              <li><a href="#">Munchpro Subscription</a></li>
+              <li><a href="#">Dine-in</a></li>
+              <li><a href="#">Partner with Us</a></li>
+              <li><a href="#">Download Munch & Mood Apps</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="{{ url_for('admin') }}">Admin</a></li>
+              <!-- <li><a href="{{ url_for('restaurant_request') }}">Restaurant Registration</a></li> -->
+              <li><a href="{{ url_for('restaurant_register') }}">Restaurant Registration</a></li>
+              <li><a href="{{ url_for('agent_portal') }}">Delivery_agent</a></li>
+            </ul>
+          </div>
+      
+        
+      
+          <div class="footer-col">
+            <h4>Locations</h4>
+            <ul>
+              <li><a href="#">Become an Affiliate</a></li>
+              <li><a href="#">All cities</a></li>
+              <li><a href="#">Ramadan delivery</a></li>
+              <li><a href="#">Areas delivered in Dhaka</a></li>
+              <li><a href="#">Areas delivered in Barisal</a></li>
+              <li><a href="#">Areas delivered in Comilla</a></li>
+              <li><a href="#">Areas delivered in Gazipur</a></li>
+              <li><a href="#">Areas delivered in Khulna</a></li>
+              <li><a href="#">Areas delivered in Mymensingh</a></li>
+              <li><a href="#">Areas delivered in Narayanganj</a></li>
+              <li><a href="#">Areas delivered in Rajshahi</a></li>
+              <li><a href="#">Areas delivered in Rangpur</a></li>
+              <li><a href="#">Areas delivered in Sylhet</a></li>
+            </ul>
+          </div>
+        </div>
+      
+        <div class="footer-bottom">
+          <p>© Munch & Mood</p>
+        </div>
+      </footer>
+      
+    <!-- Background Overlay -->
+<div id="overlay" class="overlay hidden"></div>
+
+
+<div id="login-form" class="auth-form hidden">
+    <span class="close-btn" onclick="closeForms()">✖</span>
+    <h2>Login</h2>
+    <form action="{{ url_for('login') }}" method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<div id="signup-form" class="auth-form hidden">
+    <span class="close-btn" onclick="closeForms()">✖</span>
+    <h2>Signup</h2>
+    <form action="{{ url_for('signup') }}" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Signup</button>
+    </form>
+</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginBtn = document.querySelector('.btn-login');
+      const signupBtn = document.querySelector('.btn-signup');
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const overlay = document.getElementById('overlay');
+  
+      loginBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+        overlay.classList.remove('hidden');
+      });
+  
+      signupBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        signupForm.style.display = 'block';
+        loginForm.style.display = 'none';
+        overlay.classList.remove('hidden');
+      });
+  
+      window.closeForms = function () {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'none';
+        overlay.classList.add('hidden');
+      };
+
+      // Auto-close modals if there are flash messages
+      var flashes = document.querySelector('.flashes');
+      if (flashes && flashes.children.length > 0) {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('signup-form').style.display = 'none';
+        document.getElementById('overlay').classList.add('hidden');
+      }
+    });
+
+   
+    document.addEventListener('DOMContentLoaded', function () {
+      var flashes = document.querySelector('.flashes');
+      if (flashes) {
+        setTimeout(function () {
+          flashes.style.transition = "opacity 0.5s";
+          flashes.style.opacity = 0;
+          setTimeout(function () {
+            if (flashes.parentNode) {
+              flashes.parentNode.removeChild(flashes);
+            }
+          }, 500);
+        }, 2000); 
+      }
+    });
+  </script>
+  
+  
+  
+  
+    
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-form" style="max-width:400px;">
+            <h2>Restaurant Profile</h2>
+            <div style="text-align:left;">
+                <p><strong>Restaurant Name:</strong> {{ info[0] }}</p>
+                <p><strong>Owner Name:</strong> {{ info[1] }}</p>
+                <p><strong>Email:</strong> {{ info[2] }}</p>
+                <p><strong>Joined:</strong> {{ info[3].strftime('%Y-%m-%d') if info[3] else '' }}</p>
+            </div>
+            <h3>Your Foods</h3>
+            {% set has_foods = false %}
+            {% for food in foods %}
+                {% set has_foods = true %}
+                <div style="margin-bottom:12px;padding:10px 0;border-bottom:1px solid #eee;">
+                    <strong>{{ food['name'] }}</strong>
+                    <span style="margin-left:10px;">Status: 
+                        {% if food['available'] %}
+                            <span style="color:green;">Available</span>
+                        {% else %}
+                            <span style="color:red;">Not Available</span>
+                        {% endif %}
+                    </span>
+                    <form method="POST" action="{{ url_for('toggle_availability', food_id=food['id']) }}" style="display:inline;">
+                        <button type="submit" style="margin-left:10px;">
+                            {% if food['available'] %}Mark Not Available{% else %}Mark Available{% endif %}
+                        </button>
+                    </form>
+                </div>
+            {% endfor %}
+            {% if not has_foods %}
+                <p>No foods added yet.</p>
+            {% endif %}
+            <a href="{{ url_for('restaurant_request') }}">
+                <button type="button">Restaurant Request</button>
+            </a>
+            <a href="{{ url_for('restaurant_logout') }}">
+                <button type="button" style="background:#ea9595;margin-top:10px;">Logout</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

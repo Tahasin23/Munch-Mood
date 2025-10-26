@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Munch & Mood</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Munch & Mood Logo" width="50" class="logo-img">
+            Munch & Mood
+        </div>
+        <nav class="nav-menu">
+            <a href="{{ url_for('customer_dashboard') }}" class="active">Dashboard</a>
+            <a href="{{ url_for('user_profile') }}">Profile</a>
+            <a href="{{ url_for('user_profile') }}#reviews" style="color: #f7b731; font-weight: bold;">⭐ Your Reviews</a>
+            <a href="#">Delivery</a>
+            <a href="#">Pick-up</a>
+            <a href="#">Groceries</a>
+            <a href="#">Shops</a>
+        </nav>
+        <div class="user-info">
+            <span>{{ session['email'] }}</span>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="filters">
+            <h3>Filters</h3>
+            <div class="filter-group">
+                <strong>Categories</strong>
+                <label><input type="checkbox" name="category" value="asian" onchange="filterFoods()"> Asian</label>
+                <label><input type="checkbox" name="category" value="bangladeshi" onchange="filterFoods()"> Bangladeshi</label>
+                <label><input type="checkbox" name="category" value="biryani" onchange="filterFoods()"> Biryani</label>
+                <label><input type="checkbox" name="category" value="pizza" onchange="filterFoods()"> Pizza</label>
+                <label><input type="checkbox" name="category" value="burger" onchange="filterFoods()"> Burger</label>
+                <label><input type="checkbox" name="category" value="chicken" onchange="filterFoods()"> Chicken</label>
+            </div>
+           
+        </aside>
+
+        <main class="content">
+            {% for category in ['asian', 'bangladeshi', 'biryani', 'pizza', 'burger', 'chicken'] %}
+            <section class="food-category" id="{{ category }}">
+                <h2>{{ category|title }}</h2>
+                <div class="foods-container">
+                    <div class="foods-wrapper">
+                        {% for food in foods %}
+                        {% if food.category|lower == category %}
+                        <div class="food-item" data-category="{{ food.category|lower }}">
+                            <div class="card">
+                                {% if food.image %}
+                                    <img src="{{ url_for('static', filename=food.image) }}" alt="{{ food.name }}" class="food-image">
+                                {% else %}
+                                    <div class="card-img-placeholder"></div>
+                                {% endif %}
+                                <h4>{{ food.name }}</h4>
+                                <p class="restaurant-name">{{ food.restaurant_name }}</p>
+                                <p>Rating: {{ food.rating }} ★</p>
+                                <p>Price: Tk {{ food.price }}</p>
+                                {% if food.available is defined and not food.available %}
+                                    <p style="color:red;font-weight:bold;">Not Available</p>
+                                    <button class="buy-btn" disabled style="background:#ccc;cursor:not-allowed;">Add to Cart</button>
+                                {% else %}
+                                    <div class="spacer"></div>
+                                    <button class="buy-btn" onclick="addToCart('{{ food.id }}')">
+                                        <span>Add to Cart</span>
+                                        <span class="price">Tk {{ food.price }}</span>
+                                    </button>
+                                    <a href="{{ url_for('review', food_id=food.id) }}" style="display:block; margin-top:8px;">
+                                        <button class="buy-btn" style="background:#f7b731;width:100%;">
+                                            <span>⭐ Write Review</span>
+                                        </button>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% endfor %}
+
+            <!-- Admin Foods Section -->
+            <section class="food-category" id="admin-foods">
+                <h2>Admin Foods</h2>
+                <div class="foods-container">
+                    <div class="foods-wrapper">
+                        {% for food in admin_foods %}
+                        <div class="food-item" data-category="{{ food.category }}">
+                            <div class="card">
+                                {% if food.image %}
+                                    <img src="{{ url_for('static', filename=food.image) }}" alt="{{ food.name }}" class="food-image">
+                                {% else %}
+                                    <div class="card-img-placeholder"></div>
+                                {% endif %}
+                                <h4>{{ food.name }}</h4>
+                                <p class="restaurant-name">Admin</p>
+                                <p>Rating: {{ food.rating }} ★</p>
+                                <p>Price: Tk {{ food.price }}</p>
+                                {% if food.available is defined and not food.available %}
+                                    <p style="color:red;font-weight:bold;">Not Available</p>
+                                    <button class="buy-btn" disabled style="background:#ccc;cursor:not-allowed;">Add to Cart</button>
+                                {% else %}
+                                    <div class="spacer"></div>
+                                    <button class="buy-btn" onclick="addToCart('{{ food.id }}')">
+                                        <span>Add to Cart</span>
+                                        <span class="price">Tk {{ food.price }}</span>
+                                    </button>
+                                    <a href="{{ url_for('review', food_id=food.id) }}" style="display:block; margin-top:8px;">
+                                        <button class="buy-btn" style="background:#f7b731;width:100%;">
+                                            <span>⭐ Write Review</span>
+                                        </button>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+          
+
+   
+
+    <!-- Add this before closing body tag -->
+    <script>
+    function addToCart(foodId) {
+        const formData = new FormData();
+        formData.append('food_id', foodId);
+
+        fetch('/add-to-cart', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            if(result.success){
+                window.location.href = "/cart"; // Redirect to cart page
+            } else {
+                alert('Failed to add to cart.');
+            }
+        })
+        .catch(error => {
+            alert('Failed to add to cart. Please try again.');
+        });
+    }
+
+    // Example functions for update/remove (call these from your cart page)
+    function updateCart(foodId, quantity) {
+        const formData = new FormData();
+        formData.append('food_id', foodId);
+        formData.append('quantity', quantity);
+
+        fetch('/update-cart', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Optionally update cart UI here
+        });
+    }
+
+    function removeFromCart(foodId) {
+        const formData = new FormData();
+        formData.append('food_id', foodId);
+
+        fetch('/remove-from-cart', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Optionally update cart UI here
+        });
+    }
+
+    // Category filter logic remains unchanged
+    function filterFoods() {
+        const selectedCategories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+            .map(cb => cb.value);
+
+        document.querySelectorAll('.food-category').forEach(section => {
+            const categoryId = section.id;
+            if (selectedCategories.length === 0 || selectedCategories.includes(categoryId)) {
+                section.style.display = 'block';
+                if (selectedCategories.length > 0 && categoryId === selectedCategories[0]) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', filterFoods);
+    </script>
+
+    <footer class="footer-simple">
+        <span>
+            © 2025 Munch & Mood &nbsp;|&nbsp;
+            <a href="{{ url_for('home') }}" style="color:#ee1c0d;text-decoration:none;">Home</a>
+            &nbsp;|&nbsp;
+            <a href="https://facebook.com" target="_blank" style="color:#ee1c0d; margin:0 6px;">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="https://instagram.com" target="_blank" style="color:#ee1c0d; margin:0 6px;">
+                <i class="fa-brands fa-square-instagram"></i>
+            </a>
+        </span>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Your Review</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+        }
+        
+        .top-right-btn {
+            position: absolute;
+            top: 24px;
+            right: 36px;
+            z-index: 10;
+        }
+        
+        .dashboard-btn {
+            background: #ee1c0d;
+            color: #fffbe6;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(234, 149, 149, 0.10);
+        }
+        
+        .dashboard-btn:hover {
+            background: #b81a0a;
+        }
+        
+        .review-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            width: 100%;
+            max-width: 700px;
+        }
+    
+        .vertical-line {
+            width: 4px;
+            background-color: #ee1c0d;
+            margin-right: 24px;
+            border-radius: 2px;
+        }
+    
+        .review-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+    
+        .review-title {
+            font-size: 1.8rem;
+            color: #ee1c0d;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .food-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .food-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+        
+        .food-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+    
+        .form-group {
+            margin-bottom: 24px;
+        }
+    
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+    
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border 0.3s;
+        }
+        
+        textarea:focus {
+            border-color: #ee1c0d;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(238, 28, 13, 0.2);
+        }
+    
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .star-rating input {
+            display: none;
+        }
+        
+        .star-rating label {
+            cursor: pointer;
+            font-size: 40px;
+            color: #ddd;
+            margin: 0 5px;
+            transition: color 0.2s;
+        }
+        
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #f7b731;
+        }
+    
+        .submit-btn {
+            background: #ee1c0d;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+        }
+    
+        .submit-btn:hover {
+            background: #b81a0a;
+            transform: translateY(-2px);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .back-link a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .back-link a:hover {
+            color: #ee1c0d;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            // Set the selected rating on page load
+            const currentRating = {{ review.rating }};
+            document.getElementById('star' + currentRating).checked = true;
+        }
+    </script>
+</head>
+<body>
+    <div class="top-right-btn">
+        <a href="{{ url_for('customer_dashboard') }}">
+            <button class="dashboard-btn">Back to Dashboard</button>
+        </a>
+    </div>
+    
+    <div class="review-container">
+        <div class="review-title">Edit Your Review</div>
+        
+        <div class="food-info">
+            <div>
+                <div class="food-name">{{ review.food_name }}</div>
+                <div>Update your feedback to make it more helpful!</div>
+            </div>
+        </div>
+        
+        <form method="POST" action="{{ url_for('edit_review', review_id=review.id) }}">
+            <div class="form-group">
+                <label for="rating">How would you rate this food?</label>
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="rating" value="5" required />
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" />
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" />
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" />
+                    <label for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" />
+                    <label for="star1">★</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="review">Your Review</label>
+                <textarea id="review" name="review" maxlength="500" required>{{ review.review_text }}</textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Update Review</button>
+        </form>
+        
+        <div class="back-link">
+            <a href="{{ url_for('user_profile') }}">← Cancel and Return to Profile</a>
+        </div>
+    </div>
+</body>
+</html> 

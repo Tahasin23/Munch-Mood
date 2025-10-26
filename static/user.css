@@ -1,0 +1,342 @@
+/* Replace the existing navbar styles with these */
+.navbar {
+    background: linear-gradient(90deg, #fffbe6 0%, #ea9595 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.10);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #ee1c0d;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img {
+    height: 50px;
+    width: auto;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    color: #621616;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(234, 149, 149, 0.15);
+}
+
+.back-btn:hover {
+    background: #ffeaea;
+    color: #ee1c0d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 149, 149, 0.2);
+}
+
+/* Add styles for body to ensure proper layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #e2e2b8 0%, #ea9595 100%);
+    min-height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Add these at the end of the file */
+
+.profile-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.15);
+}
+
+.profile-card h2 {
+    color: #ee1c0d;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+.profile-form label {
+    display: block;
+    color: #621616;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ea9595;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #621616;
+}
+
+.profile-form input:read-only {
+    background-color: #f5f5f5;
+}
+
+.update-btn {
+    background: linear-gradient(90deg, #ee1c0d 0%, #ea9595 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.update-btn:hover {
+    background: linear-gradient(90deg, #621616 0%, #ea9595 100%);
+}
+
+.alert {
+    color: #1ca01c;
+    font-weight: bold;
+    font-size: 1.3rem;
+    background: none;
+    border: none;
+    text-align: center;
+}
+
+/* Message section styles */
+.message-section {
+    background: #ffeaea;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 30px;
+    border: 1px solid #ee1c0d;
+}
+
+.message-section h3 {
+    color: #ee1c0d;
+    margin: 0 0 16px 0;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.delivery-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ea9595;
+}
+
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.accepted {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.delivered {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.delivery-time {
+    color: #621616;
+    font-size: 0.9rem;
+}
+
+.delivery-items, .delivery-total {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    background: #fff;
+    border-radius: 8px;
+    color: #621616;
+}
+
+.agent-message {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #ea9595;
+}
+
+.agent-message strong {
+    color: #ee1c0d;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.agent-message p {
+    color: #621616;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Messages Section Styles */
+.messages-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 12px rgba(234, 149, 149, 0.15);
+    min-height: 200px; /* Ensure minimum height */
+}
+
+.messages-section h2 {
+    color: #ee1c0d;
+    margin: 0 0 20px 0;
+    font-size: 1.5rem;
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #ffeaea;
+}
+
+.message-card {
+    background: #ffeaea;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ea9595;
+    transition: transform 0.2s ease;
+}
+
+.message-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 149, 149, 0.2);
+}
+
+.message-card:last-child {
+    margin-bottom: 0;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ea9595;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.message-time {
+    color: #621616;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.message-content {
+    color: #621616;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    padding: 8px 0;
+    word-wrap: break-word;
+}
+
+.message-content em {
+    color: #856404;
+    font-style: italic;
+}
+
+.no-messages {
+    text-align: center;
+    color: #621616;
+    padding: 40px 20px;
+    background: #ffeaea;
+    border-radius: 8px;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+/* Status badge styles */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.accepted {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-badge.delivered {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .message-time {
+        margin-top: 8px;
+    }
+    
+    .status-badge {
+        min-width: 80px;
+    }
+}
